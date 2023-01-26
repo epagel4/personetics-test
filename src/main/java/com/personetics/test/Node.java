@@ -1,32 +1,60 @@
 package com.personetics.test;
 
-import java.util.Arrays;
-import java.util.List;
+public class Node<T> {
+    class node<T> {
+        final T data;
+        node<T> next;
 
-public class Node {
-
-    public static List<String> wordsList = Arrays.asList("ABC", "DEF", "PERSON");
-
-    public static List<Integer> numbersList = Arrays.asList(1, 93, 55, 53);
-
-    public static List<String> getWordsList() {
-        return wordsList;
+        node(T data) {
+            this.data = data;
+            this.next = null;
+        }
     }
 
-    public static void setWordsList(List<String> wordsList) {
-        Node.wordsList = wordsList;
-    }
+    class list<T> {
+        node<T> head;
+        private int newlength = 0;
 
-    public static List<Integer> getNumberList() {
-        return numbersList;
-    }
+        list() {
+            this.head = null;
+        }
 
-    public static void setNumberList(List<Integer> numberList) {
-        Node.numbersList = numberList;
-    }
+        void add(T data) {
+            node<T> newtemp = new node<>(data);
+            if (this.head == null) {
+                head = newtemp;
+            } else {
+                node<T> X = head;
+                while (X.next != null) {
+                    X = X.next;
+                }
+                X.next = newtemp;
+            }
+            newlength++;
+        }
 
-    @Override
-    public String toString() {
-        return numbersList.toString() + wordsList.toString();
+        void add(int newposition, T data) {
+            if (newposition > newlength + 1) {
+                return;
+            }
+            if (newposition == 1) {
+                node<T> newtemp = head;
+                head = new node<T>(data);
+                head.next = newtemp;
+            }
+        }
+
+        public String toString() {
+            String S = "{ ";
+            node<T> X = head;
+            if (X == null)
+                return S + " }";
+            while (X.next != null) {
+                S += X.data + " -> ";
+                X = X.next;
+            }
+            S += String.valueOf(X.data);
+            return S + " }";
+        }
     }
 }
